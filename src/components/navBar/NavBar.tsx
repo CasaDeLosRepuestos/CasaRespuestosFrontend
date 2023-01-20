@@ -1,11 +1,26 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 export default function NavBar() {
+  const cookies = new Cookies();
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClickCreate = () => {
     navigate('/newProduct');
   };
+
+  const handleClickSession = () => {
+    cookies.remove('id', { path: '/' });
+    cookies.remove('user', { path: '/' });
+    navigate('/');
+  };
+
+  useEffect(() => {
+    if (!cookies.get('user')) {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <nav className="navbar bg-dark" data-bs-theme="dark">
@@ -25,9 +40,16 @@ export default function NavBar() {
           <button
             className="btn btn-outline-success m-2 p-2"
             type="button"
-            onClick={handleClick}
+            onClick={handleClickCreate}
           >
             Crear Producto
+          </button>
+          <button
+            className="btn btn-outline-danger m-2 p-2"
+            type="button"
+            onClick={handleClickSession}
+          >
+            Cerrar sesion
           </button>
         </div>
       </div>

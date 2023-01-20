@@ -1,10 +1,13 @@
-import Swal from 'sweetalert2';
 import { Formik, Form, Field } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { postProduct } from '../../services/postProducts';
+import Swal from 'sweetalert2';
+import Cookies from 'universal-cookie';
 import './NewProduct.css';
+import { useEffect } from 'react';
 
 export default function NewProduct() {
+  const cookies = new Cookies();
   const navigate = useNavigate();
 
   const linea: string[] = [
@@ -46,7 +49,7 @@ export default function NewProduct() {
         showConfirmButton: false,
         timer: 1500,
       });
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -55,6 +58,12 @@ export default function NewProduct() {
       });
     }
   };
+
+  useEffect(() => {
+    if (!cookies.get('user')) {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <div className="d-flex justify-content-center align-items-center">
