@@ -1,10 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getProducts } from '../../services/getProducts';
 import Cookies from 'universal-cookie';
+import ExportExcel from 'react-export-excel';
 
 export default function NavBar() {
+  const [products, setProducts] = useState([]);
   const cookies = new Cookies();
   const navigate = useNavigate();
+
+  const ExcelFile = ExportExcel.ExcelFile;
+  const ExcelSheet = ExportExcel.ExcelSheet;
+  const ExcelColumn = ExportExcel.ExcelColumn;
 
   const handleClickCreate = () => {
     navigate('/newProduct');
@@ -15,6 +22,13 @@ export default function NavBar() {
     cookies.remove('user', { path: '/' });
     navigate('/');
   };
+
+  useEffect(() => {
+    (async () => {
+      const response = await getProducts();
+      setProducts(response);
+    })();
+  }, []);
 
   useEffect(() => {
     if (!cookies.get('user')) {
@@ -30,13 +44,24 @@ export default function NavBar() {
         </h1>
         <h3 style={{ color: 'white', fontWeight: 'bolder' }}>inventario</h3>
         <div className="d-flex">
-          <button
-            className="btn btn-outline-warning m-2 p-2"
-            type="button"
-            disabled={true}
+          <ExcelFile
+            element={
+              <button className="btn btn-outline-warning m-2 p-2" type="button">
+                Generar excel
+              </button>
+            }
+            filename="Inventario Casa de los Repuestos"
           >
-            Generar excel
-          </button>
+            <ExcelSheet data={products} name="Inventario">
+              <ExcelColumn label="Categoria" value="categoria" />
+              <ExcelColumn label="SubCategoria" value="linea" />
+              <ExcelColumn label="Unidad" value="unidad" />
+              <ExcelColumn label="Descripcion" value="descripcion" />
+              <ExcelColumn label="Costo" value="precio" />
+              <ExcelColumn label="Codigo de Barras" value="referencia" />
+              <ExcelColumn label="Cantidad" value="cantidad" />
+            </ExcelSheet>
+          </ExcelFile>
           <button
             className="btn btn-outline-success m-2 p-2"
             type="button"

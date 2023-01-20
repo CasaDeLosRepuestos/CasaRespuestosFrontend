@@ -45,7 +45,7 @@ export default function NewProduct() {
       Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'The product has been created',
+        title: 'El producto a sido creado',
         showConfirmButton: false,
         timer: 1500,
       });
@@ -142,7 +142,7 @@ export default function NewProduct() {
               className="form-control mt-3"
             />
             <button type="submit" className="btn btn-success mt-3 mb-3">
-              Crear encuesta
+              Crear Producto
             </button>
           </div>
         </Form>
