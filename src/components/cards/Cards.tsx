@@ -22,6 +22,7 @@ export default function Cards() {
           id={el.id}
           linea={el.linea}
           categoria={el.categoria}
+          marca={el.marca}
           descripcion={el.descripcion}
           precio={el.precio}
           referencia={el.referencia}

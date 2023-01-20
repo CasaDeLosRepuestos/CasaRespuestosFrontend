@@ -2,8 +2,16 @@ import { deleteProduct } from '../../services/deleteProduct';
 import Swal from 'sweetalert2';
 
 export default function Card(props: any) {
-  const { id, linea, categoria, descripcion, precio, referencia, cantidad } =
-    props;
+  const {
+    id,
+    linea,
+    marca,
+    categoria,
+    descripcion,
+    precio,
+    referencia,
+    cantidad,
+  } = props;
 
   const handleEliminate = async () => {
     Swal.fire({
@@ -37,6 +45,9 @@ export default function Card(props: any) {
           {linea}
         </h4>
         <h6 className="card-subtitle mb-2 text-muted fw-bolder">{categoria}</h6>
+        <p className="card-text" style={{ color: 'white' }}>
+          <b>Marca:</b> {marca}
+        </p>
         <p className="card-text" style={{ color: 'white' }}>
           <b>Descripcion:</b> {descripcion}
         </p>

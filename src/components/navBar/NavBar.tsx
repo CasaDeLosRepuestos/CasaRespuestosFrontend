@@ -55,6 +55,7 @@ export default function NavBar() {
             <ExcelSheet data={products} name="Inventario">
               <ExcelColumn label="Categoria" value="categoria" />
               <ExcelColumn label="SubCategoria" value="linea" />
+              <ExcelColumn label="Marca" value="marca" />
               <ExcelColumn label="Unidad" value="unidad" />
               <ExcelColumn label="Descripcion" value="descripcion" />
               <ExcelColumn label="Costo" value="precio" />

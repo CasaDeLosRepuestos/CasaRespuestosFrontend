@@ -1,10 +1,10 @@
+import { useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { postProduct } from '../../services/postProducts';
 import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
 import './NewProduct.css';
-import { useEffect } from 'react';
 
 export default function NewProduct() {
   const cookies = new Cookies();
@@ -33,6 +33,37 @@ export default function NewProduct() {
     'accesorios',
     'caja',
     'direccion',
+  ];
+
+  const marca: string[] = [
+    'Toto',
+    'Tokico',
+    'Ndc',
+    'Tahio',
+    'Rik',
+    'Tp',
+    'Npr',
+    'Daido',
+    'INR',
+    'Nok',
+    'Pos',
+    'Sideral',
+    'Treefive',
+    '555',
+    'THO',
+    'Safety',
+    'Sabo',
+    'FRACO',
+    'Tamayo',
+    'TNK',
+    'Technorot',
+    'Taiwan',
+    'Japon',
+    'Original',
+    'Mobis',
+    'Bwb',
+    'Valeo',
+    'Aubos',
   ];
 
   const handleClickBack = () => {
@@ -76,6 +107,7 @@ export default function NewProduct() {
         initialValues={{
           linea: '',
           categoria: '',
+          marca: '',
           descripcion: '',
           precio: 0,
           referencia: '',
@@ -108,6 +140,20 @@ export default function NewProduct() {
             >
               <option hidden>Respuesta...</option>
               {categoria.map((el: string) => (
+                <option value={el} key={el}>
+                  {el}
+                </option>
+              ))}
+            </Field>
+            <label className="form-label mt-3">Marca:</label>
+            <Field
+              component="select"
+              id="marca"
+              name="marca"
+              className="form-select mt-3"
+            >
+              <option hidden>Respuesta...</option>
+              {marca.map((el: string) => (
                 <option value={el} key={el}>
                   {el}
                 </option>
